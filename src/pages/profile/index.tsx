@@ -1,12 +1,10 @@
 import { AuthContext } from "@/contexts/AuthContext";
 import { canSSRAuth } from "@/utils/canSSRAuth";
-import { Box, Button, Center, Flex, Heading, Input, Text } from "@chakra-ui/react";
-import { Sidebar } from "@/components/sidebar";
-import Head from "next/head";
-import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { setupAPIClient } from "@/services/api";
 import { toast } from "react-toastify";
+import ProfileLayout from "./Profile.layout";
+import { HandlersProfileType, VariablesProfileType } from "./Profile.types";
 
 interface UserProps {
   id: string
@@ -40,75 +38,25 @@ export default function Profile({ user, premium }: ProfileProps) {
     setLoader(false)
   }
 
+  const variables = {
+    address,
+    loader,
+    name
+  } as VariablesProfileType
+
+  const handlers = {
+    setName,
+    setAddress,
+    handleLogout,
+    handleUpdateUser,
+  } as HandlersProfileType
+
   return (
     <>
-      <Head>
-        <title>Minha Conta - Rocha's Client Barber</title>
-      </Head>
-      <Sidebar>
-        <Flex background="barber.900" minH="100vh" alignItems="center" justifyContent="flex-start" direction="column">
-
-          <Flex pt={8} pb={8} maxW="1200px" w="100%" direction="column">
-
-            <Flex w="100%" direction="row" alignItems="center" justifyContent="flex-start">
-              <Heading fontSize="3xl" color="orange.900" mt={6} mb={4} mr={4}>Minha Conta</Heading>
-            </Flex>
-
-            <Flex pt={8} pb={8} maxW="1200px" w="100%" direction="column" alignItems="center" justifyContent="center" bg="barber.400" gap={4} rounded={4}>
-
-              <Flex direction="column" w="85%" >
-                <Text color="white" mb={1} fontSize="xl" fontWeight="bold">Nome da barbearia:</Text>
-                <Input color="white" placeholder="Nome da Barbearia" w="100%" bg="gray.900" type="text" size="lg"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </Flex>
-
-              <Flex direction="column" w="85%" >
-                <Text color="white" mb={1} fontSize="xl" fontWeight="bold">Endereço:</Text>
-                <Input color="white" placeholder="Endereço da barbearia" w="100%" bg="gray.900" type="text" size="lg"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-              </Flex>
-
-              {/* <Flex direction="column" w="85%">
-                <Text color="white" mb={3} fontSize="xl" fontWeight="bold">Plano Atual:</Text>
-
-                <Flex direction="row" w="100%" p={1} borderWidth={1} mb={3} rounded={6} alignItems="center" justifyContent="space-between"
-                  bg="barber.900"
-                >
-                  <Text color={premium ? "#fba931" : "#4dffb4"} p={2} fontSize="md" ml={1}>Plano {premium ? "Premium" : "Grátis"}</Text>
-
-                  <Link href='/planos'>
-                    <Box cursor="pointer" p={1} pl={2} pr={2} mr={3} bg="#00cd52" color="white" rounded={4}>
-                      Mudar Plano
-                    </Box>
-                  </Link>
-                </Flex>
-              </Flex> */}
-
-              <Flex direction="column" w="85%">
-                <Button
-                  isLoading={loader} onClick={handleUpdateUser} w="100%" mt={3} mb={3} bg="button.cta" size="lg" _hover={{ bg: '#ffb13e' }}
-                >
-                  Salvar
-                </Button>
-                <Button
-                  onClick={handleLogout} w="100%"  mb={4} bg="red.600" size="lg" _hover={{ bg: 'red.500' }}
-                >
-                  Sair da conta
-                </Button>
-              </Flex>
-
-
-
-            </Flex>
-
-          </Flex>
-
-        </Flex>
-      </Sidebar>
+      <ProfileLayout
+        handlers={handlers}
+        variables={variables}
+      />
     </>
   )
 }
