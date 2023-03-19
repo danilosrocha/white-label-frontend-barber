@@ -6,7 +6,7 @@ import { signOut } from '@/contexts/AuthContext';
 import configEnv from './config';
 
 export function setupAPIClient(ctx = undefined) {
-    const apiUrl = configEnv === "PROD" ? "https://backend-barber.up.railway.app" : "http://localhost:3333";
+    const apiUrl = configEnv === "PROD" ? "https://backend-barber.up.railway.app" : "https://wl-backend-barber-sandbox.up.railway.app/";
     let cookies = parseCookies(ctx);
 
     const api = axios.create({

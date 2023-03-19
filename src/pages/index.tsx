@@ -10,16 +10,13 @@ import { useEffect } from "react";
 export default function Preloader() {
 
   useEffect(() => {
-    setTimeout(() => {
-        Router.push('/fast');
-    }, 1);
-
+    Router.push('/login');
   }, []);
 
   return (
     <>
       <Head>
-        <title>Rocha's Client - Bigode Grosso</title>
+        <title>Rocha's Client - Barber Client</title>
       </Head>
       <Flex background="barber.900" minH="100vh" alignItems="center" justifyContent="center">
         <Flex width={640} direction="column" p={14} rounded={8} alignItems="center" justifyContent="center">
