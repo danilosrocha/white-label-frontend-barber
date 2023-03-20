@@ -37,7 +37,7 @@ const LinkItems: Array<LinkItemProps> = [
     { name: 'Agenda', icon: FiClipboard, route: '/schedule' },
     { name: 'Cortes', icon: FiScissors, route: '/haircuts' },
     { name: 'Barbeiros', icon: FiUsers, route: '/barbers' },
-    // { name: 'Dashboard', icon: HiChartBar, route: '/dashboard' },
+    { name: 'Métricas', icon: HiChartBar, route: '/dashboard' },
     { name: 'Minha Conta', icon: FiSettings, route: '/profile' },
 ]
 
@@ -188,7 +188,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 
             <Flex flexDirection="row">
                 <Text ml={8} fontSize="2xl" fontFamily="monospace" fontWeight="bold" color="white">
-                Bigode
+                    Bigode
                 </Text>
                 <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold" color="button.cta">
                     Grosso

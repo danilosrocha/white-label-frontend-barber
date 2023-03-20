@@ -1,5 +1,17 @@
 import { Dispatch, SetStateAction } from "react";
 
+export interface UserProps {
+    id: string
+    name: string
+    email: string
+    address: string | null
+}
+
+export interface ProfileProps {
+    user: UserProps,
+    premium: boolean
+}
+
 export type LayoutProfileProps = {
     variables: VariablesProfileType
     handlers: HandlersProfileType
