@@ -11,10 +11,19 @@ import Head from "next/head";
 import { Sidebar } from "@/components/sidebar";
 import { LayoutDashboardProps } from "./Dashboard.types";
 import dashboardText from "./Dashboard.language";
-import React from "react";
+import React, { RefObject, useEffect, useRef, useState } from "react";
 import { DiYeoman } from "react-icons/di";
+import { motion } from 'framer-motion'
+
 
 export default function ProfileLayout({ handlers, variables }: LayoutDashboardProps) {
+
+  const [width, setWidth] = useState(0)
+  const carousel: RefObject<HTMLDivElement> = useRef(null);
+
+  useEffect(() => {
+    setWidth(carousel.current?.scrollWidth - carousel.current?.offsetWidth);
+  }, []);
 
   const data = [
     { client: "Danilo", corte: "Corte Simples", conta: false, status: "pago" },
@@ -23,7 +32,6 @@ export default function ProfileLayout({ handlers, variables }: LayoutDashboardPr
     { client: "Danilo", corte: "Corte 1", conta: true, status: "pago" },
     { client: "Danilo", corte: "Corte 1", conta: false, status: "pago" },
   ]
-
 
   return (
     <>
@@ -41,49 +49,68 @@ export default function ProfileLayout({ handlers, variables }: LayoutDashboardPr
 
             <Flex p={4} maxW="1200px" w="100%" direction="column" bg="barber.400" rounded={4} gap={4} >
 
-              <Stack
-                direction={{ base: "column", md: "row" }}
-                spacing={4}
-                w="100%"
-                justify="space-between"
+              <motion.div
+                ref={carousel}
+                style={{ overflow: "hidden" }}
+                whileDrag={{ cursor: "grabbing" }}
               >
-                <Flex direction="column" w="100%">
-                  <Text color="white" mb={1} fontSize="xl" fontWeight="bold">
-                    {dashboardText?.fatMonth}
-                  </Text>
-                  <Flex rounded={4} p={8} bg="#12131B" color="#fff" flex={1} w="100%"></Flex>
-                </Flex>
+                <motion.div
+                  drag='x'
+                  dragConstraints={{ right: 0, left: -width }}
+                >
+                  <Stack
+                    direction={{ base: "column", md: "row" }}
+                    spacing={4}
+                    w="100%"
+                    justify="space-between"
+                    cursor='grab'
+                  >
+                    <Flex direction="column" minW="300px">
+                      <Text color="white" mb={1} fontSize="xl" fontWeight="bold">
+                        {dashboardText?.fatMonth}
+                      </Text>
+                      <Flex rounded={4} p={8} bg="#12131B" color="#fff" flex={1} w="100%"></Flex>
+                    </Flex>
 
-                <Flex direction="column" w="100%" maxH="250px" >
-                  <Text color="white" mb={1} fontSize="xl" fontWeight="bold">
-                    {dashboardText?.fatInd}
-                  </Text>
-                  <Flex direction="column" rounded={4} p={4} bg="#12131B" color="#fff" flex={1} w="100%" overflowY="scroll">
-                    {data?.map(barber => {
-                      // const isItemLoading = variables?.loadingItemId === barber.id;
-                      return (
-                        // <Link key={barber.id} href={`/barbers/${barber.id}`} onClick={() => handlers?.handleClickItem(barber.id)} >
-                        <Flex cursor="pointer" w="100%" p={4} bg="barber.400" rounded={4} mb={4} justifyContent="space-between">
-                          <Flex direction="row" alignItems="center" justifyContent="center" >
-                            <DiYeoman color="#fba931" size={28} />
-                            <Text color="white" fontWeight="bold" ml={4} noOfLines={2}>{barber.client}</Text>
-                          </Flex>
-                        </Flex>
+                    <Flex direction="column" minW="300px">
+                      <Text color="white" mb={1} fontSize="xl" fontWeight="bold">
+                        {dashboardText?.fatMonth}
+                      </Text>
+                      <Flex rounded={4} p={8} bg="#12131B" color="#fff" flex={1} w="100%"></Flex>
+                    </Flex>
 
-                      );
-                    })}
-                  </Flex>
-                </Flex>
+                    <Flex direction="column" minW="300px" maxH="250px" >
+                      <Text color="white" mb={1} fontSize="xl" fontWeight="bold">
+                        {dashboardText?.fatInd}
+                      </Text>
+                      <Flex direction="column" rounded={4} p={4} bg="#12131B" color="#fff" flex={1} w="100%" overflowY="scroll">
+                        {data?.map(barber => {
+                          // const isItemLoading = variables?.loadingItemId === barber.id;
+                          return (
+                            // <Link key={barber.id} href={`/barbers/${barber.id}`} onClick={() => handlers?.handleClickItem(barber.id)} >
+                            <Flex cursor="pointer" w="100%" p={4} bg="barber.400" rounded={4} mb={4} justifyContent="space-between">
+                              <Flex direction="row" alignItems="center" justifyContent="center" >
+                                <DiYeoman color="#fba931" size={28} />
+                                <Text color="white" fontWeight="bold" ml={4} noOfLines={2}>{barber.client}</Text>
+                              </Flex>
+                            </Flex>
 
-                <Flex direction="column" w="100%">
-                  <Text color="white" mb={1} fontSize="xl" fontWeight="bold">
-                    {dashboardText?.resume}
-                  </Text>
-                  <Flex rounded={4} p={8} bg="#12131B" color="#fff" flex={1} w="100%">
+                          );
+                        })}
+                      </Flex>
+                    </Flex>
 
-                  </Flex>
-                </Flex>
-              </Stack>
+                    <Flex direction="column" minW="300px">
+                      <Text color="white" mb={1} fontSize="xl" fontWeight="bold">
+                        {dashboardText?.resume}
+                      </Text>
+                      <Flex rounded={4} p={8} bg="#12131B" color="#fff" flex={1} w="100%">
+
+                      </Flex>
+                    </Flex>
+                  </Stack>
+                </motion.div>
+              </motion.div>
 
               <Flex direction='column' w='100%'>
                 <Text color="white" mb={1} fontSize="xl" fontWeight="bold">{dashboardText?.history}</Text>
