@@ -3,18 +3,26 @@ import { canSSRAuth } from "@/utils/canSSRAuth";
 import { useContext, useState } from "react";
 import { setupAPIClient } from "@/services/api";
 import { toast } from "react-toastify";
-import ProfileLayout from "./Profile.layout";
-import { HandlersProfileType, ProfileProps, VariablesProfileType } from "./Profile.types";
+import ProfileLayout from "./Dashboard.layout";
+import { HandlersDashboardType, VariablesDashboardType } from "./Dashboard.types";
 
-export default function Profile({ user }: ProfileProps) {
+interface UserProps {
+  id: string
+  name: string
+  email: string
+  address: string | null
+}
+
+interface ProfileProps {
+  user: UserProps,
+}
+
+export default function Dashboard({ user }: ProfileProps) {
   const { logoutUser, updateUser } = useContext(AuthContext)
   const [name, setName] = useState(user?.name || "")
   const [address, setAddress] = useState(user?.address || "")
   const [loader, setLoader] = useState(false)
-
-  async function handleLogout() {
-    await logoutUser()
-  }
+  const [loadingItemId, setLoadingItemId] = useState(null)
 
   async function handleUpdateUser() {
     if (!name) {
@@ -26,18 +34,23 @@ export default function Profile({ user }: ProfileProps) {
     setLoader(false)
   }
 
-  const variables = {
+  function handleClickItem(id: string) {
+    setLoadingItemId(id);
+  }
+
+  const variables: VariablesDashboardType = {
     address,
     loader,
-    name
-  } as VariablesProfileType
+    name,
+    loadingItemId
+  }
 
-  const handlers = {
+  const handlers: HandlersDashboardType = {
     setName,
     setAddress,
-    handleLogout,
+    handleClickItem,
     handleUpdateUser,
-  } as HandlersProfileType
+  }
 
   return (
     <>
