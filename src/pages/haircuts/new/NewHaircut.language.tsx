@@ -1,6 +1,6 @@
-import { BarberLanguageType } from "./NewHaircut.types";
+import { NewHaircutLanguageType } from "./NewHaircut.types";
 
-const barberIdText: BarberLanguageType = {
+const barberIdText: NewHaircutLanguageType = {
     title: "Minha Conta - Rocha's Client Barber",
     name: "Nome: ",
     account: "Minha Conta",

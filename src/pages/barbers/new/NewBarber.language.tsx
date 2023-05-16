@@ -1,6 +1,6 @@
-import { NewLanguageType } from "./NewBarber.types";
+import {  NewBarberLanguageType} from "./NewBarber.types";
 
-const newText: NewLanguageType = {
+const newText: NewBarberLanguageType = {
     title: "Novo agendamento- Rocha's Client Barber",
     btcBack: "Voltar",
     btaSchedule: "Agendar",

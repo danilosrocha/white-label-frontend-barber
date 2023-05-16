@@ -1,6 +1,6 @@
-import { NewLanguageType } from "./Fast.types";
+import { FastLanguageType } from "./Fast.types";
 
-const newText: NewLanguageType = {
+const newText: FastLanguageType = {
     title: "Novo agendamento- Rocha's Client Barber",
     btcBack: "Voltar",
     btaSchedule: "Agendar",

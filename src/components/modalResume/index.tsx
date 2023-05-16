@@ -13,7 +13,6 @@ import {
 
 import { FiUser, FiScissors, FiTrash2, FiClock } from 'react-icons/fi'
 import { FaMoneyBillAlt } from 'react-icons/fa'
-import { ScheduleItem } from '../../pages/schedule'
 import { DiYeoman } from "react-icons/di";
 
 interface CutInfo {

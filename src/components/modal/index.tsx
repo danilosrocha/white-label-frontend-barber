@@ -13,8 +13,8 @@ import {
 
 import { FiUser, FiScissors, FiTrash2 } from 'react-icons/fi'
 import { FaMoneyBillAlt } from 'react-icons/fa'
-import { ScheduleItem } from '../../pages/schedule'
 import { DiYeoman } from "react-icons/di";
+import { ScheduleItem } from '@/pages/schedule/Schedule.types';
 
 interface ModalInfoProps {
     isOpen: boolean;
